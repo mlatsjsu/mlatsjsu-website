@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-light-primary: 222 115 48;
+    --color-light-secondary: 245 194 70;
+    --color-light-background: 255 255 255;
+    --color-light-text: 44 53 58;
+    --color-light-neutral-dark: 144 153 158;
+    --color-light-neutral-gray: 194 203 208;
+    --color-light-neutral-white: 244 253 255;
+    --color-light-link: 66 133 244;
+  }
+}
