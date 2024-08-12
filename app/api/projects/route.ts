@@ -9,7 +9,10 @@ export async function GET() {
     const { rows } = await getProjects();
     return Response.json({ rows: rows.map(({ pos, ...rest }) => rest) });
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
@@ -36,8 +39,11 @@ export async function POST(req: Request) {
     return Response.json({ rows });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {
-      return Response.json({ error }, { status: 401 });
+      return Response.json({ error: error.message }, { status: 401 });
     }
-    return Response.json({ error }, { status: 500 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

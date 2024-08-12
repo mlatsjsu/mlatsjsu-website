@@ -16,7 +16,7 @@ export async function DELETE(
 
     const { rows } = await pool.query(
       `
-        DELETE FROM whitelist WHERE id = $1;
+        DELETE FROM whitelist WHERE id = $1 RETURNING *;
       `,
       [id],
     );
@@ -24,8 +24,11 @@ export async function DELETE(
     return Response.json({ rows });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {
-      return Response.json({ error }, { status: 401 });
+      return Response.json({ error: error.message }, { status: 401 });
     }
-    return Response.json({ error }, { status: 500 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
