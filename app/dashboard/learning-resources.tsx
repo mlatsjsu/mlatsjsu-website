@@ -7,12 +7,12 @@ import React from 'react';
 import useSWR from 'swr';
 
 interface LearningResourceQuery {
-  rows: LearningResourceItem[];
+  rows: Omit<LearningResourceItem, 'pos'>[];
 }
 
 interface FormElements
   extends HTMLFormControlsCollection,
-    Omit<LearningResourceItem, 'id'> {}
+    Omit<LearningResourceItem, 'id' | 'pos'> {}
 interface FormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }

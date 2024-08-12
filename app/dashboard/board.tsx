@@ -9,12 +9,12 @@ import React from 'react';
 import useSWR from 'swr';
 
 interface BoardQuery {
-  rows: BoardItem[];
+  rows: Omit<BoardItem, 'pos'>[];
 }
 
 interface FormElements
   extends HTMLFormControlsCollection,
-    Omit<BoardItem, 'id'> {}
+    Omit<BoardItem, 'id' | 'pos'> {}
 interface FormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
