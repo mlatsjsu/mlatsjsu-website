@@ -24,8 +24,8 @@ export default async function Resources() {
             {learningResources.rows.map((resource, i) => (
               <li key={i}>
                 <Link
-                  href={resource.link}
                   target="_blank"
+                  href={resource.link}
                   rel="noreferrer"
                   className="text-light-link underline transition-all duration-100 ease-in-out hover:opacity-75"
                 >

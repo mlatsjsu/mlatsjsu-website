@@ -42,6 +42,7 @@ export default async function Home() {
             </p>
             <div className="flex w-full py-sm max-lg:flex-col max-lg:items-center max-lg:gap-sm lg:gap-lg">
               <LinkButton
+                target="_blank"
                 href="https://discord.gg/6B42XHr36m"
                 type="primary"
                 color="#5865F2"
@@ -186,6 +187,7 @@ export default async function Home() {
           </p>
           <div className="flex w-full gap-lg py-sm max-lg:flex-col">
             <LinkButton
+              target="_blank"
               href="https://discord.gg/6B42XHr36m"
               type="primary"
               color="#5865F2"
@@ -194,6 +196,7 @@ export default async function Home() {
               Discord
             </LinkButton>
             <LinkButton
+              target="_blank"
               href="https://www.instagram.com/sjsuml"
               type="primary"
               color="#C13584"
@@ -202,6 +205,7 @@ export default async function Home() {
               Instagram
             </LinkButton>
             <LinkButton
+              target="_blank"
               href="https://www.youtube.com/@mlatsjsu7429/videos"
               type="primary"
               color="#F61C0D"
@@ -209,8 +213,8 @@ export default async function Home() {
               <Image src={youtubeIcon} alt="youtube-icon" />
               YouTube
             </LinkButton>
-
             <LinkButton
+              target="_blank"
               href="https://www.linkedin.com/in/ml-at-sjsu-3769792a4"
               type="primary"
               color="#0E76AB"

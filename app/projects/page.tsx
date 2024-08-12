@@ -60,7 +60,7 @@ export default function Projects() {
             ))}
           </ul>
           <div className="flex w-full gap-lg pb-lg pt-sm max-lg:flex-col">
-            <LinkButton href="/" type="primary">
+            <LinkButton href="/about#get-involved" type="primary">
               <CodeBracketIcon width={20} height={20} />
               Get Involved
             </LinkButton>

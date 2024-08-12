@@ -78,6 +78,7 @@ export default async function About() {
             In order to complete the trial project, please join our discord
             server and read the pinned message in the{' '}
             <Link
+              target="_blank"
               className="text-light-link underline transition-all duration-100 ease-in-out hover:opacity-75"
               href="https://discord.gg/6B42XHr36m"
             >
@@ -87,6 +88,7 @@ export default async function About() {
           </p>
           <div className="flex w-full gap-lg py-sm max-lg:flex-col">
             <LinkButton
+              target="_blank"
               href="https://discord.gg/6B42XHr36m"
               type="primary"
               color="#5865F2"
@@ -130,6 +132,7 @@ export default async function About() {
                   </div>
                   {member.linkedin ? (
                     <Link
+                      target="_blank"
                       className="min-w-lg transition-all duration-100 ease-in-out hover:opacity-75"
                       href={member.linkedin}
                     >

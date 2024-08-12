@@ -6,11 +6,13 @@ interface LinkButtonProps {
   href: string;
   onClick?: () => void;
   type: 'primary' | 'secondary' | 'ghost';
+  target?: string;
   color?: string;
 }
 
 const LinkButton: React.FC<LinkButtonProps> = ({
   children,
+  target,
   href,
   onClick,
   type,
@@ -18,6 +20,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
 }) => {
   return (
     <Link
+      target={target}
       href={href}
       onClick={onClick}
       className={clsx(
