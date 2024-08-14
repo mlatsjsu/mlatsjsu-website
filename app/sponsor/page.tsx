@@ -1,7 +1,12 @@
 import VerticalLine from '@/components/vertical-line';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-export default function Sponsor() {
+export const metadata: Metadata = {
+  title: 'Sponsor',
+};
+
+export default function Page() {
   return (
     <main>
       {/* Sponsor Us */}

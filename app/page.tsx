@@ -16,7 +16,7 @@ import { MapPinIcon } from '@heroicons/react/20/solid';
 import { CalendarDaysIcon } from '@heroicons/react/20/solid';
 import { getSpotlights } from '@/lib/db';
 
-export default async function Home() {
+export default async function Page() {
   const spotlights = await getSpotlights();
   return (
     <main>

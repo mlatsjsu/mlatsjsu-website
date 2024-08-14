@@ -2,8 +2,13 @@ import VerticalLine from '@/components/vertical-line';
 import LinkButton from '@/components/link-button';
 import { CodeBracketIcon } from '@heroicons/react/20/solid';
 import { getProjects } from '@/lib/db';
+import { Metadata } from 'next';
 
-export default async function Projects() {
+export const metadata: Metadata = {
+  title: 'Projects',
+};
+
+export default async function Page() {
   const projects = await getProjects();
   return (
     <main>

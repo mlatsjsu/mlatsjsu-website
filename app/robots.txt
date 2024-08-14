@@ -1,0 +1,6 @@
+# TODO: Once domain is set, update the sitemap and robots.txt files
+User-Agent: *
+Allow: /
+Disallow: /dashboard/
+
+Sitemap: https://acme.com/sitemap.xml

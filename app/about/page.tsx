@@ -6,8 +6,13 @@ import about from '@/assets/about.png';
 import discordIcon from '@/assets/discord-icon.svg';
 import linkedinButton from '@/assets/linkedin-button.svg';
 import { getBoard } from '@/lib/db';
+import { Metadata } from 'next';
 
-export default async function About() {
+export const metadata: Metadata = {
+  title: 'About',
+};
+
+export default async function Page() {
   const board = await getBoard();
   return (
     <main>

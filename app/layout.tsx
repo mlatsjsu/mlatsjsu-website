@@ -7,8 +7,13 @@ import Footer from '@/components/footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'ML@SJSU',
-  description: 'The official website for the Machine Learning Club at SJSU',
+  title: {
+    template: '%s | ML@SJSU',
+    default: 'Machine Learning Club at SJSU',
+  },
+  description: 'The official website for the Machine Learning Club at SJSU.',
+  authors: [{ name: 'Ahmad Gazali', url: 'https://www.gaza.li' }],
+  creator: 'ML@SJSU',
 };
 
 export default async function RootLayout({

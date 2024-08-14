@@ -1,8 +1,13 @@
 import VerticalLine from '@/components/vertical-line';
 import { getLearningResources } from '@/lib/db';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-export default async function Resources() {
+export const metadata: Metadata = {
+  title: 'Resources',
+};
+
+export default async function Pages() {
   const learningResources = await getLearningResources();
   return (
     <main>
