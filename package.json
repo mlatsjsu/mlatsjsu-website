@@ -20,6 +20,7 @@
     "swr": "^2.2.5"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.7.0",
     "@types/node": "^20",
     "@types/pg": "^8.11.6",
     "@types/react": "^18",
