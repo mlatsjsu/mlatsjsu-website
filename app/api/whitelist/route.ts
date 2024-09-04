@@ -1,13 +1,13 @@
+import { isAuthorizedAdmin } from '@/lib/auth-admin';
 import pool from '@/lib/db';
-import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const session = await getServerSession();
+    const authorized = await isAuthorizedAdmin();
 
-    if (!session) {
+    if (!authorized) {
       throw new Error('Unauthorized');
     }
 
@@ -28,9 +28,9 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const authorized = await isAuthorizedAdmin();
 
-    if (!session) {
+    if (!authorized) {
       throw new Error('Unauthorized');
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import VerticalLine from '@/components/vertical-line';
+import { VerticalLine } from '@/components/atoms';
 import React from 'react';
 
 export default function Error({

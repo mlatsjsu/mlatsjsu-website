@@ -1,6 +1,6 @@
+import { isAuthorizedAdmin } from '@/lib/auth-admin';
 import cloudinary from '@/lib/cloudinary';
 import pool, { getSpotlights } from '@/lib/db';
-import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,9 +18,9 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const authorized = await isAuthorizedAdmin();
 
-    if (!session) {
+    if (!authorized) {
       throw new Error('Unauthorized');
     }
 

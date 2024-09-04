@@ -19,7 +19,7 @@ class FetchError extends Error {
 }
 
 // From the SWR docs
-const fetcher = async (url: string) => {
+export const fetcher = async (url: string) => {
   const res = await fetch(url);
 
   // If the status code is not in the range 200-299,

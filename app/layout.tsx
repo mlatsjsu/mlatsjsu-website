@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
+import { Footer, Navbar } from '@/components/organisms';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +23,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-TZ7CVDXW" />
       <body
         className={`${inter.className} bg-light-background text-light-text`}
       >
@@ -32,6 +33,7 @@ export default async function RootLayout({
         {children}
         <Footer />
       </body>
+      <GoogleAnalytics gaId="G-VDW4DWH7VJ" />
     </html>
   );
 }

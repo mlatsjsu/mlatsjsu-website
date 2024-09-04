@@ -28,6 +28,7 @@ const config: Config = {
       sm: '11px',
       md: '22px',
       lg: '44px',
+      none: '0',
     },
     borderWidth: {
       'line-width': '2.5px',

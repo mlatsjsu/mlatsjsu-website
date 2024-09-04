@@ -1,14 +1,14 @@
+import { isAuthorizedAdmin } from '@/lib/auth-admin';
 import pool from '@/lib/db';
-import { getServerSession } from 'next-auth';
 
 export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
   try {
-    const session = await getServerSession();
+    const authorized = await isAuthorizedAdmin();
 
-    if (!session) {
+    if (!authorized) {
       throw new Error('Unauthorized');
     }
 
@@ -35,9 +35,9 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   try {
-    const session = await getServerSession();
+    const authorized = await isAuthorizedAdmin();
 
-    if (!session) {
+    if (!authorized) {
       throw new Error('Unauthorized');
     }
 

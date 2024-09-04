@@ -1,4 +1,4 @@
-import VerticalLine from '@/components/vertical-line';
+import { VerticalLine } from '@/components/atoms';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
