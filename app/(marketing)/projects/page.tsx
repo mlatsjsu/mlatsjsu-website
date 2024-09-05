@@ -3,6 +3,8 @@ import { getProjects } from '@/lib/db';
 import { Metadata } from 'next';
 import { LinkBtn, VerticalLine } from '@/components/atoms';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Projects',
 };

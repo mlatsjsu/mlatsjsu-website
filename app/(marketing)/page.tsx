@@ -14,6 +14,8 @@ import { CalendarDaysIcon } from '@heroicons/react/20/solid';
 import { getSpotlights } from '@/lib/db';
 import { HorizontalLine, LinkBtn, VerticalLine } from '@/components/atoms';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const spotlights = await getSpotlights();
   return (
