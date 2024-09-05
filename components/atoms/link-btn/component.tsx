@@ -15,7 +15,7 @@ export const LinkBtn: React.FC<Props> = ({
   return (
     <Link
       className={cn(
-        'flex w-fit items-center justify-center gap-sm whitespace-nowrap rounded-md py-sm text-button transition-all duration-100 ease-in-out max-lg:w-full',
+        'flex w-fit items-center justify-center gap-sm whitespace-nowrap rounded-md py-sm !text-button transition-all duration-100 ease-in-out max-lg:w-full',
         {
           '!border-line-width border-dashed border-light-neutral-gray bg-light-background px-lg text-light-text hover:border-solid hover:opacity-75 active:border-solid active:opacity-50':
             variant === 'primary',
