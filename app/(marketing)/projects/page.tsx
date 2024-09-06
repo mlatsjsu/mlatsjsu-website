@@ -35,12 +35,12 @@ export default async function Page() {
                   backgroundPosition: 'center',
                 }}
               >
-                <details className="flex w-full flex-col bg-[linear-gradient(rgb(var(--color-light-text)),rgb(var(--color-light-text)/0.5))] p-lg">
+                <details className="flex min-h-[350px] w-full flex-col bg-[linear-gradient(rgb(var(--color-light-text)),rgb(var(--color-light-text)/0)_50%)] p-lg open:bg-[linear-gradient(rgb(var(--color-light-text)),rgb(var(--color-light-text)/0.5))]">
                   <summary className="cursor-pointer marker:transition-all marker:duration-100 marker:ease-in-out marker:hover:text-[rgb(var(--color-light-background)/0.75)] max-lg:text-h3-mobile lg:text-h3-desktop">
                     &nbsp;&nbsp;
                     {project.title}
                   </summary>
-                  <p className="pb-[128px] pt-md">{project.description}</p>
+                  <p className="pt-md">{project.description}</p>
                 </details>
               </li>
             ))}
