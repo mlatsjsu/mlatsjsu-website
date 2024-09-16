@@ -7,6 +7,7 @@ import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ''),
   title: {
     template: '%s | ML@SJSU',
     default: 'Machine Learning Club at SJSU',
