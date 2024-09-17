@@ -30,7 +30,6 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-TZ7CVDXW" />
       <body
         className={`${inter.className} bg-light-background text-light-text`}
       >
@@ -40,6 +39,7 @@ export default async function RootLayout({
         {children}
         <Footer />
       </body>
+      <GoogleTagManager gtmId="GTM-TZ7CVDXW" />
       <GoogleAnalytics gaId="G-VDW4DWH7VJ" />
     </html>
   );
