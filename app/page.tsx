@@ -13,13 +13,8 @@ import { MapPinIcon } from '@heroicons/react/20/solid';
 import { CalendarDaysIcon } from '@heroicons/react/20/solid';
 import { getSpotlights } from '@/lib/db';
 import { HorizontalLine, LinkBtn, VerticalLine } from '@/components/atoms';
-import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-  title: 'Home',
-};
 
 export default async function Page() {
   const spotlights = await getSpotlights();

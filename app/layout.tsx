@@ -12,6 +12,12 @@ export const metadata: Metadata = {
     template: '%s | ML@SJSU',
     default: 'Machine Learning Club at SJSU',
   },
+  openGraph: {
+    title: 'Machine Learning Club at SJSU',
+    type: 'website',
+    url: new URL('/', process.env.NEXT_PUBLIC_BASE_URL || ''),
+    images: '/opengraph-image.png',
+  },
   description: 'The official website for the Machine Learning Club at SJSU.',
   authors: [{ name: 'Ahmad Gazali', url: 'https://www.gaza.li' }],
   creator: 'ML@SJSU',
