@@ -21,7 +21,7 @@ import Footer from '../../footer';
 import SessionWrapper from '@/wrappers/session-wrapper';
 import { AuthBtn, DashboardBtn } from '@/components/molecules';
 import { cn } from '@/lib/cn';
-import SWRConfigProvider from '@/providers/swr-config';
+import SWRConfigProvider from '@/wrappers/swr-config';
 
 export const Navbar: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = React.useState(false);
