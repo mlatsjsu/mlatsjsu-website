@@ -7,20 +7,19 @@ import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ''),
   title: {
     template: '%s | ML@SJSU',
     default: 'Machine Learning Club at SJSU',
   },
-  openGraph: {
-    title: 'Machine Learning Club at SJSU',
-    type: 'website',
-    url: new URL('/', process.env.NEXT_PUBLIC_BASE_URL || ''),
-    images: `${process.env.NEXT_PUBLIC_BASE_URL}/og.png`,
-  },
   description: 'The official website for the Machine Learning Club at SJSU.',
   authors: [{ name: 'Ahmad Gazali', url: 'https://www.gaza.li' }],
   creator: 'ML@SJSU',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ''),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: new URL('/', process.env.NEXT_PUBLIC_BASE_URL || ''),
+  },
 };
 
 export default async function RootLayout({
