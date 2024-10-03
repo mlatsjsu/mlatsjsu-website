@@ -6,7 +6,6 @@ import linkedinButton from '@/assets/linkedin-button.svg';
 import { getBoard } from '@/lib/db';
 import { Metadata } from 'next';
 import { LinkBtn, VerticalLine } from '@/components/atoms';
-import Btn from '@/components/atoms/btn';
 
 export const dynamic = 'force-dynamic';
 
