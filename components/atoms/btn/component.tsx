@@ -14,9 +14,9 @@ export const Btn: React.FC<Props> = ({
   return (
     <button
       className={cn(
-        '',
+        'flex items-center justify-center gap-sm py-sm opacity-100 hover:opacity-75',
         {
-          '': variant === 'primary',
+          'rounded-sm bg-light-neutral-gray px-lg': variant === 'primary',
           '': variant === 'secondary',
         },
         className,
