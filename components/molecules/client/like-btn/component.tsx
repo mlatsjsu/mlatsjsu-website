@@ -1,12 +1,24 @@
+"use client"; //needed?
+
 import { Btn } from '@/components/atoms/btn'; //imports atom btn
 
 import thumbsIcon from '@/assets/hand-thumb-up.svg'; //changed the googleicon to the thumbs icon 
 //TODO: download and place svg for the thumbs icon
 import Image from 'next/image';
+import React from 'react';//needed?
 
 interface Props extends React.ComponentProps<typeof Btn>{} //removed omits
 
 export const LikeBtn: React.FC<Props> = ({ ...props }) => { //kept component/function def same from Authbtn
+    
+    const [liked,setLiked] = React.useState<boolean>(false);
+    const [likeCount, setLikeCount] = React.useState<number>(0);
+    
+    function likeHandler() {
+        liked ? setLiked(false) : setLiked(true);
+        liked ? setLikeCount(likeCount => likeCount-1) : setLikeCount(likeCount => likeCount+1);
+    }
+
     return (
         /*
         function clickHandler() {
@@ -14,6 +26,6 @@ export const LikeBtn: React.FC<Props> = ({ ...props }) => { //kept component/fun
         }
         */
 
-        <Btn {...props}> Like <Image src = {thumbsIcon} alt = "thumbsup"/></Btn>
+        <Btn {...props} onClick={likeHandler}> <Image src = {thumbsIcon} alt = "thumbsup"/> {likeCount} {liked} </Btn>
     )
 };
