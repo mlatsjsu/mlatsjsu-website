@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   description: 'The official website for the Machine Learning Club at SJSU.',
   authors: [{ name: 'Ahmad Gazali', url: 'https://www.gaza.li' }],
   creator: 'ML@SJSU',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ''),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: new URL('/', process.env.NEXT_PUBLIC_BASE_URL || ''),
+  },
 };
 
 export default async function RootLayout({
@@ -23,7 +29,6 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-TZ7CVDXW" />
       <body
         className={`${inter.className} bg-light-background text-light-text`}
       >
@@ -33,6 +38,7 @@ export default async function RootLayout({
         {children}
         <Footer />
       </body>
+      <GoogleTagManager gtmId="GTM-TZ7CVDXW" />
       <GoogleAnalytics gaId="G-VDW4DWH7VJ" />
     </html>
   );

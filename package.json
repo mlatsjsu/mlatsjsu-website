@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@auth/pg-adapter": "^1.5.2",
     "@heroicons/react": "^2.0.18",
     "@next/third-parties": "^14.2.7",
     "@types/webpack-env": "^1.18.4",

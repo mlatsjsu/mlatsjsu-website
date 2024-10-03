@@ -3,37 +3,37 @@
   <url>
     <loc>https://mlatsjsu.com</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>1</priority>
   </url>
   <url>
-  <loc>https://mlatsjsu.com/about</loc>
+    <loc>https://mlatsjsu.com/about</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>0.9</priority>
   </url>
   <url>
-  <loc>https://mlatsjsu.com/projects</loc>
+    <loc>https://mlatsjsu.com/projects</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>0.8</priority>
   </url>
   <url>
-  <loc>https://mlatsjsu.com/events</loc>
+    <loc>https://mlatsjsu.com/events</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>0.7</priority>
   </url>
   <url>
-  <loc>https://mlatsjsu.com/resources</loc>
+    <loc>https://mlatsjsu.com/resources</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>0.6</priority>
   </url>
   <url>
-  <loc>https://mlatsjsu.com/sponsor</loc>
+    <loc>https://mlatsjsu.com/sponsor</loc>
     <lastmod>2024-09-04T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
+    <!-- <changefreq>weekly</changefreq> -->
     <priority>0.5</priority>
   </url>
 </urlset>

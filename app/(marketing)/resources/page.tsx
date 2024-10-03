@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { VerticalLine } from '@/components/atoms';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Resources',
 };

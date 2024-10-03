@@ -1,7 +1,6 @@
 'use client';
 
 import { WhitelistForm, WhitelistTable } from './whitelist';
-import SWRConfigProvider from '@/providers/swr-config';
 import {
   SpotlightForm,
   SpotlightTable,
@@ -14,6 +13,7 @@ import {
   LearningResourceTable,
   LearningResourceTableKeyProvider,
 } from './learning-resources';
+import SWRConfigProvider from '@/wrappers/swr-config';
 
 const Dashboard: React.FC = () => (
   <SWRConfigProvider>

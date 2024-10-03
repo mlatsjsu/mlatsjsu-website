@@ -1,8 +1,9 @@
 import { getServerSession } from 'next-auth';
 import pool from './db';
+import { authOptions } from './auth-options';
 
 export const isAuthorizedAdmin = async () => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
     return false;
   }
