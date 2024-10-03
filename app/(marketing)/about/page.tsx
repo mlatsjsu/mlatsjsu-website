@@ -19,8 +19,6 @@ export default async function Page() {
   return (
     <main>
       {/* Purpose */}
-      <Btn variant="primary">Primary</Btn>
-      <Btn variant="secondary">Primary</Btn>
       <section className="mx-auto flex w-full max-w-desktop items-stretch py-xl">
         <VerticalLine hasTopCap hasBottomCap />
         <div className="flex flex-1 flex-col items-center max-lg:px-sm">
