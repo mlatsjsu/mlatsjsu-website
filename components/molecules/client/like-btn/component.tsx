@@ -3,6 +3,7 @@
 import { Btn } from '@/components/atoms/btn'; //imports atom btn
 
 import thumbsIcon from '@/assets/hand-thumb-up.svg'; //changed the googleicon to the thumbs icon 
+import orangeThumbsIcon from '@/assets/hand-thumb-up-orange.svg';
 //TODO: download and place svg for the thumbs icon
 import Image from 'next/image';
 import React from 'react';//needed?
@@ -13,10 +14,12 @@ export const LikeBtn: React.FC<Props> = ({ ...props }) => { //kept component/fun
     
     const [liked,setLiked] = React.useState<boolean>(false);
     const [likeCount, setLikeCount] = React.useState<number>(0);
+    const [thumbs, setThumbs] = React.useState<string>(thumbsIcon);
     
     function likeHandler() {
         liked ? setLiked(false) : setLiked(true);
         liked ? setLikeCount(likeCount => likeCount-1) : setLikeCount(likeCount => likeCount+1);
+        liked ? setThumbs(thumbsIcon) : setThumbs(orangeThumbsIcon);
     }
 
     return (
@@ -26,6 +29,6 @@ export const LikeBtn: React.FC<Props> = ({ ...props }) => { //kept component/fun
         }
         */
 
-        <Btn {...props} onClick={likeHandler}> <Image src = {thumbsIcon} alt = "thumbsup"/> {likeCount} {liked} </Btn>
+        <Btn {...props} onClick={likeHandler}> <Image src = {thumbs} alt = "thumbsup"/> {likeCount} {liked} </Btn>
     )
 };
