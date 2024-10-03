@@ -6,6 +6,7 @@ import linkedinButton from '@/assets/linkedin-button.svg';
 import { getBoard } from '@/lib/db';
 import { Metadata } from 'next';
 import { LinkBtn, VerticalLine } from '@/components/atoms';
+import LikeBtn from '@/components/molecules/client/like-btn';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,6 +18,7 @@ export default async function Page() {
   const board = await getBoard();
   return (
     <main>
+      <LikeBtn variant="primary" children={undefined}></LikeBtn>
       {/* Purpose */}
       <section className="mx-auto flex w-full max-w-desktop items-stretch py-xl">
         <VerticalLine hasTopCap hasBottomCap />
