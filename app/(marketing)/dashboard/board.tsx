@@ -6,7 +6,7 @@ import { BoardItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import React from 'react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface BoardQuery {
   rows: Omit<BoardItem, 'pos'>[];
@@ -52,9 +52,12 @@ const useBoard = () => {
   const remountTable = () => {
     setTableKey((prev) => prev + 1);
   };
-  const { data, error, mutate, isLoading } = useSWR<BoardQuery>('/api/board', {
-    onSuccess: remountTable, // This will trigger a re-render of the table component to reorder the TR's within the table element
-  });
+  const { data, error, mutate, isLoading } = useSWRImmutable<BoardQuery>(
+    '/api/board',
+    {
+      onSuccess: remountTable, // This will trigger a re-render of the table component to reorder the TR's within the table element
+    },
+  );
   return { data, error, mutate, tableKey, isLoading };
 };
 

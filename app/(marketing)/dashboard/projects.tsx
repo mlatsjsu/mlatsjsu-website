@@ -6,7 +6,7 @@ import { ProjectItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import React from 'react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface ProjectQuery {
   rows: Omit<ProjectItem, 'pos'>[];
@@ -52,7 +52,7 @@ const useProjects = () => {
   const remountTable = () => {
     setTableKey((prev) => prev + 1);
   };
-  const { data, error, mutate, isLoading } = useSWR<ProjectQuery>(
+  const { data, error, mutate, isLoading } = useSWRImmutable<ProjectQuery>(
     '/api/projects',
     {
       onSuccess: remountTable, // This will trigger a re-render of the table component to reorder the TR's within the table element

@@ -4,7 +4,7 @@ import { Table } from '@/components/organisms';
 import { LearningResourceItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import React from 'react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface LearningResourceQuery {
   rows: Omit<LearningResourceItem, 'pos'>[];
@@ -50,12 +50,10 @@ const useLearningResources = () => {
   const remountTable = () => {
     setTableKey((prev) => prev + 1);
   };
-  const { data, error, mutate, isLoading } = useSWR<LearningResourceQuery>(
-    '/api/learning-resources',
-    {
+  const { data, error, mutate, isLoading } =
+    useSWRImmutable<LearningResourceQuery>('/api/learning-resources', {
       onSuccess: remountTable, // This will trigger a re-render of the table component to reorder the TR's within the table element
-    },
-  );
+    });
   return { data, error, mutate, tableKey, isLoading };
 };
 
