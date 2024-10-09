@@ -30,7 +30,7 @@ export async function DELETE(
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
-    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
+    return Response.json({ error: error }, { status: 500 });
   }
 }
 export async function PATCH(
@@ -75,6 +75,6 @@ export async function PATCH(
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
-    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
+    return Response.json({ error: error }, { status: 500 });
   }
 }
