@@ -24,18 +24,13 @@ export const LikeBtn: React.FC<Props> = ({className, children, variant, ...props
     }
 
     return (
-        /*
-        function clickHandler() {
-            setLiked();
-        }
-        */
-
-        <Btn variant={'secondary'} {...props}
+        <Btn variant={'secondary'}
             className={cn(
                 {
                     'text-orange-500': liked,
                     '': !liked,
-                }
+                },
+            className,
             )}
             onClick={likeHandler}> <Image src = {thumbs} alt = "thumbsup"/> {likeCount} {liked} 
         </Btn>
