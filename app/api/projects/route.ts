@@ -12,7 +12,7 @@ export async function GET() {
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
-    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
+    return Response.json({ error: error }, { status: 500 });
   }
 }
 
@@ -44,6 +44,6 @@ export async function POST(req: Request) {
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
-    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
+    return Response.json({ error: error }, { status: 500 });
   }
 }

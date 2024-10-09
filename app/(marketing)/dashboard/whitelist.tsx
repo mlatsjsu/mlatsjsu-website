@@ -3,7 +3,7 @@
 import { Table } from '@/components/organisms';
 import { WhitelistItem } from '@/types';
 import { PlusIcon } from '@heroicons/react/16/solid';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface WhitelistQuery {
   rows: WhitelistItem[];
@@ -18,7 +18,7 @@ interface FormElement extends HTMLFormElement {
 
 const useWhitelist = () => {
   const { data, error, mutate, isLoading } =
-    useSWR<WhitelistQuery>('/api/whitelist');
+    useSWRImmutable<WhitelistQuery>('/api/whitelist');
   return { data, error, mutate, isLoading };
 };
 

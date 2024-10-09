@@ -6,7 +6,7 @@ import { SpotlightItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import React from 'react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface SpotlightQuery {
   rows: Omit<SpotlightItem, 'pos'>[];
@@ -52,7 +52,7 @@ const useSpotlights = () => {
   const remountTable = () => {
     setTableKey((prev) => prev + 1);
   };
-  const { data, error, mutate, isLoading } = useSWR<SpotlightQuery>(
+  const { data, error, mutate, isLoading } = useSWRImmutable<SpotlightQuery>(
     '/api/spotlights',
     {
       onSuccess: remountTable, // This will trigger a re-render of the table component to reorder the TR's within the table element

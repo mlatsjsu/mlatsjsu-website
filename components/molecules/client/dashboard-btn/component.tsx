@@ -1,6 +1,6 @@
 import { LinkBtn } from '@/components/atoms';
 import { WrenchScrewdriverIcon } from '@heroicons/react/20/solid';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface Props
   extends Omit<
@@ -9,7 +9,7 @@ interface Props
   > {}
 
 export const DashboardBtn: React.FC<Props> = ({ ...props }) => {
-  const { data, error, isLoading } = useSWR('/api/auth/isAuthAdmin');
+  const { data, error, isLoading } = useSWRImmutable('/api/auth/isAuthAdmin');
   if (isLoading) return null;
   if (error) return null;
   if (!data) return null;
