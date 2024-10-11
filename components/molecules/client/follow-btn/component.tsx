@@ -14,7 +14,7 @@ export const FollowBtn: React.FC<Props> = ({variant, className, ...props}) => (
     variant="secondary"
     className={cn(
         {
-            'text-light-primary': variant === 'follow',
+            'text-[#DC7434]': variant === 'follow',
             'text-light-text': variant === 'following',
             "text-[#CF0000]": variant === "unfollow",
         },
