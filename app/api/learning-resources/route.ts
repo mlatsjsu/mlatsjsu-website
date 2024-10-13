@@ -17,6 +17,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    console.log('learning resources post');
     const authorized = await isAuthorizedAdmin();
 
     if (!authorized) {
