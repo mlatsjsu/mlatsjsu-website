@@ -20,16 +20,24 @@ export async function POST(req: Request) {
   try {
     console.log('board post');
     const authorized = await isAuthorizedAdmin();
+    console.log('defined authorized');
 
     if (!authorized) {
+      console.log('unauthorized');
       throw new Error('Unauthorized');
     }
+    console.log('after authorization');
 
     const form = await req.formData();
+    console.log('got form data');
     const name = form.get('name');
+    console.log('got name');
     const role = form.get('role');
+    console.log('got role');
     const linkedin = form.get('linkedin');
+    console.log('got linkedin');
     const image = form.get('image');
+    console.log('got image');
     console.log('uploading image');
     const img = await cloudinary.uploader.upload(image as string);
     console.log('uploaded image');
