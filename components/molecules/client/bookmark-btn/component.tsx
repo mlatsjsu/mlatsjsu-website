@@ -7,7 +7,9 @@ import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 
 import React from 'react';
 
-interface Props extends Omit<React.ComponentProps<typeof Btn>, 'children' | 'variant'> {}
+interface Props extends Omit<React.ComponentProps<typeof Btn>, 'children' | 'variant'> {
+    isBookmarked: boolean;
+}
 
 export const BookmarkBtn: React.FC<Props> = ({className, ...props}) => {
     
