@@ -9,19 +9,19 @@ import React from 'react';
 
 interface Props extends React.ComponentProps<typeof Btn>{}
 
-export const BookmarkBtn: React.FC<Props> = ({className, children, variant, ...props}) => {
+export const BookmarkBtn: React.FC<Props> = ({className, ...props}) => {
     
-    const [bookmark, setBookmark] = React.useState<boolean>(false);
+    const [isBookmarked, setIsBookmarked] = React.useState(props.isBookmarked);
     function bookmarkHandler() {
-        setBookmark(!bookmark);
+        setIsBookmarked(!isBookmarked);
     }
 
-    const BookmarkIcon = bookmark ? BookmarkIconSolid : BookmarkIconOutline;
+    const BookmarkIcon = isBookmarked ? BookmarkIconSolid : BookmarkIconOutline;
 
     return (
         <Btn variant={'secondary'} onClick={bookmarkHandler}>
             <BookmarkIcon className="h-6 w-6"/>
-            {bookmark}
+            {isBookmarked}
         </Btn>
     );
 };
