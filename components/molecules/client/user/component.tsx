@@ -1,4 +1,3 @@
-// components/molecules/client/user/component.tsx
 import React, { useState } from 'react';
 import FollowBtn from '@/components/molecules/client/follow-btn';
 
@@ -23,27 +22,9 @@ const UserComponent: React.FC<UserProps> = ({
 }) => {
   const [isFollowing, setIsFollowing] = useState(initialFollowed);
 
-  const handleFollowToggle = async () => {
-    const action = isFollowing ? 'remove' : 'add';
-    try {
-      const response = await fetch(`/users/${userId}/reading-list`, {
-        method: action === 'add' ? 'POST' : 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ post_id: postId, user_id: userId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update reading list');
-      }
-
-      const data = await response.json();
-      console.log(data.message);
-      setIsFollowing(!isFollowing);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  const handleFollowToggle = () => {
+    // Here we just update the local state without making any API requests
+    setIsFollowing(!isFollowing);
   };
 
   return (
@@ -58,11 +39,10 @@ const UserComponent: React.FC<UserProps> = ({
       </div>
       <FollowBtn
         variant={isFollowing ? 'unfollow' : 'follow'}
-        //onClick={handleFollowToggle} // Make sure to attach the click handler
-        
+        //onClick={handleFollowToggle} // Attach the click handler for local state management
       />
     </div>
   );
 };
 
-export default UserComponent; // Ensure this is the default export
+export default UserComponent;
