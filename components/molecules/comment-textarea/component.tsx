@@ -16,10 +16,10 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
   }
 
   return (
-    <div className="text-light h-141px w-862px flex flex-col rounded-sm bg-light-neutral-gray">
-      <div> Slot in Small User component here</div>
+    <div className="text-light h-141px w-862px m-sm flex flex-col rounded-sm bg-[rgb(var(--color-light-neutral-gray)/0.25)]">
+      <div className="m-sm"> Slot in Small User component here</div>
       Hi
-      <div className="flex justify-end">
+      <div className="m-sm flex justify-end">
         <Btn variant={'primary'} className="text-light-primary">
           {' '}
           Send{' '}
