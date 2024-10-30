@@ -7,11 +7,7 @@ import React from 'react';
 interface Props
   extends Omit<React.ComponentProps<typeof Btn>, 'variant' | 'children'> {}
 
-//interface Props extends React.ComponentProps<typeof Btn> {}
-
 export const LikeBtn: React.FC<Props> = ({ className, ...props }) => {
-  //kept component/function def same from Authbtn
-
   const [liked, setLiked] = React.useState<boolean>(false);
   const [likeCount, setLikeCount] = React.useState<number>(0);
 
