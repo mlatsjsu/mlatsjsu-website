@@ -29,7 +29,9 @@ export async function POST(req: Request) {
     const role = form.get('role');
     const linkedin = form.get('linkedin');
     const image = form.get('image');
+    console.log('uploading image');
     const img = await cloudinary.uploader.upload(image as string);
+    console.log('uploaded image');
     const url = img.secure_url;
     const { rows } = await pool.query(
       `
