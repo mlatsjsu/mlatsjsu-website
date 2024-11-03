@@ -28,6 +28,12 @@ export async function POST(req: Request) {
     }
     console.log('after authorization');
 
+    // Possible issues:
+    // Request body size limit
+    // Function execution time limit (function should not execute for more than 10 seconds)
+
+    console.log('Content-Length:', req.headers.get('Content-Length'));
+
     const form = await req.formData();
     console.log('got form data');
     const name = form.get('name');
@@ -50,6 +56,7 @@ export async function POST(req: Request) {
     );
     return Response.json({ rows });
   } catch (error) {
+    console.error(error);
     if (error instanceof Error && error.message === 'Unauthorized') {
       return Response.json({ error: error.message }, { status: 401 });
     }
