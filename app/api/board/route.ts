@@ -18,35 +18,18 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    console.log('board post');
     const authorized = await isAuthorizedAdmin();
-    console.log('defined authorized');
 
     if (!authorized) {
-      console.log('unauthorized');
       throw new Error('Unauthorized');
     }
-    console.log('after authorization');
-
-    // Possible issues:
-    // Request body size limit
-    // Function execution time limit (function should not execute for more than 10 seconds)
-
-    console.log('Content-Length:', req.headers.get('Content-Length'));
 
     const form = await req.formData();
-    console.log('got form data');
     const name = form.get('name');
-    console.log('got name');
     const role = form.get('role');
-    console.log('got role');
     const linkedin = form.get('linkedin');
-    console.log('got linkedin');
     const image = form.get('image');
-    console.log('got image');
-    console.log('uploading image');
     const img = await cloudinary.uploader.upload(image as string);
-    console.log('uploaded image');
     const url = img.secure_url;
     const { rows } = await pool.query(
       `
@@ -56,7 +39,6 @@ export async function POST(req: Request) {
     );
     return Response.json({ rows });
   } catch (error) {
-    console.error(error);
     if (error instanceof Error && error.message === 'Unauthorized') {
       return Response.json({ error: error.message }, { status: 401 });
     }
