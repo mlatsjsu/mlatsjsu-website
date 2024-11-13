@@ -1,5 +1,4 @@
 import { isAuthorizedAdmin } from '@/lib/auth-admin';
-import cloudinary from '@/lib/cloudinary';
 import pool, { getBoard } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -29,13 +28,11 @@ export async function POST(req: Request) {
     const role = form.get('role');
     const linkedin = form.get('linkedin');
     const image = form.get('image');
-    const img = await cloudinary.uploader.upload(image as string);
-    const url = img.secure_url;
     const { rows } = await pool.query(
       `
         INSERT INTO board (name, role, linkedin, image) VALUES ($1, $2, $3, $4) RETURNING *;
       `,
-      [name, role, linkedin, url],
+      [name, role, linkedin, image],
     );
     return Response.json({ rows });
   } catch (error) {
