@@ -3,6 +3,8 @@
 import React from 'react';
 import { Tag } from '@/components/atoms/tag';
 import { cn } from '@/lib/cn';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 
 interface FilterGroupProps {
   options: string[];
@@ -12,6 +14,16 @@ interface FilterGroupProps {
 
 export const FilterGroup: React.FC<FilterGroupProps> = ({ options, onChange, className }) => {
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Initialize the selected options from query parameters
+  React.useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    const tagsFromUrl = params.getAll('tags');
+    setSelectedOptions(tagsFromUrl);
+  }, [searchParams]);
 
   const handleOptionChange = (option: string) => {
     const updatedOptions = selectedOptions.includes(option)
@@ -20,6 +32,12 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({ options, onChange, cla
     
     setSelectedOptions(updatedOptions);
     onChange?.(updatedOptions);
+
+    // Update URL parameters
+    const params = new URLSearchParams(searchParams);
+    params.delete('tags');
+    updatedOptions.forEach((tag) => params.append('tags', tag));
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -60,18 +78,12 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({ options, onChange, cla
   );
 };
 
-// used to test
-// export default function FilterGroupExample() {
-//   const filterOptions = ['Data Science', 'Self Improvement', 'Writing', 'Deep Learning', 'NLP', 'Ethics'];
-
-//   const handleFilterChange = (selectedOptions: string[]) => {
-//     console.log('Selected options:', selectedOptions);
-//   };
-
-  return (
-    <FilterGroup
-      options={filterOptions}
-      onChange={handleFilterChange}
-    />
-  );
-}
+// used to test... 
+// {/* Filter Group */}
+// <section className="mx-auto flex w-full max-w-desktop flex-col items-center px-xl py-lg">
+// <FilterGroup
+//   options={['Data Science', 'Self Improvement', 'Writing', 'Deep Learning', 'NLP', 'Ethics']}
+//   onChange={(selectedOptions) => console.log('Selected options:', selectedOptions)}
+// />
+// </section>
+// import { FilterGroup } from '@/components/molecules/client/filter-group';
