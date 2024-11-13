@@ -8,7 +8,7 @@ export async function GET(request: Request) {
         const limit = Number(url.searchParams.get('limit') || 10);
         const page = Number(url.searchParams.get('page') || 1);
         const type = url.searchParams.get('type') || 'recommended';
-        const topics = url.searchParams.getAll('topics[]');
+        const topics = url.searchParams.getAll('topics');
         const author_id = url.searchParams.get('author_id') || null;
         const offset = (page - 1) * limit;
 
@@ -36,20 +36,22 @@ export async function GET(request: Request) {
             whereClauses.push(`id IN (SELECT user_id FROM users_topics WHERE topic_name = ANY($${queryParams.length}))`);
         }
 
-        if (type === 'recommended') {
-            queryText += ` ORDER BY follower_count DESC, following_count DESC`;
-        } else if (type === 'followers' && author_id) {
+        if (type === 'followers' && author_id) {
             queryParams.push(author_id);
             whereClauses.push(`id IN (SELECT follower_id FROM follows WHERE following_id = $${queryParams.length})`);
         } else if (type === 'following' && author_id) {
             queryParams.push(author_id);
             whereClauses.push(`id IN (SELECT following_id FROM follows WHERE follower_id = $${queryParams.length})`);
-        } else if (type === 'followers' || type === 'following') {
-            return new Response(JSON.stringify({ error: 'author_id is required for followers/following type' }), { status: 400 });
+        } else if ((type === 'followers' || type === 'following') && !author_id) {
+            throw new Error('missing_author_id');
         }
 
         if (whereClauses.length > 0) {
             queryText += ' WHERE ' + whereClauses.join(' AND ');
+        }
+
+        if (type === 'recommended') {
+            queryText += ` ORDER BY follower_count DESC, following_count DESC`;
         }
 
         queryParams.push(limit, offset);
@@ -59,6 +61,9 @@ export async function GET(request: Request) {
 
         return new Response(JSON.stringify({ users: rows.length > 0 ? rows : null }), { status: 200 });
     } catch (error) {
+        if (error instanceof Error && error.message === 'missing_author_id') {
+            return new Response(JSON.stringify({ error: 'author_id is required for followers/following type' }), { status: 400 });
+        }
         if (error instanceof Error) {
             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
         }
