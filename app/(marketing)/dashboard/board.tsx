@@ -1,7 +1,6 @@
 'use client';
 
 import { Table } from '@/components/organisms';
-import { blobToBase64 } from '@/lib/blobToBase64';
 import { BoardItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
@@ -93,16 +92,30 @@ export const BoardForm = () => {
           ],
     };
 
-    // Convert image to base64 for Cloudinary
-    const base64Image = await blobToBase64(formData.get('image') as Blob);
+    const image = formData.get('image');
     formData.delete('image');
-    if (typeof base64Image === 'string') {
-      formData.append('image', base64Image);
-    }
 
     // Optimistically add the new item to the list, send the request
     mutate(
       async () => {
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', image as Blob);
+        uploadFormData.append(
+          'upload_preset',
+          process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string,
+        );
+        const data = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUDINARY_URL}/image/upload`,
+          {
+            method: 'POST',
+            body: uploadFormData,
+          },
+        );
+        if (!data.ok) {
+          throw new Error('Failed to upload image');
+        }
+        const upload_res = await data.json();
+        formData.set('image', upload_res.secure_url);
         await fetch('/api/board', {
           method: 'POST',
           body: formData,
