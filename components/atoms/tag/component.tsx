@@ -15,7 +15,7 @@ export const Tag: React.FC<Props> = ({ children, className, ...props }) => {
       <input {...props} className="peer sr-only" id={id} />
       <label
         className={cn(
-          'bg-border animation peer-checked:!text-background flex cursor-pointer items-center gap-xs rounded-lg px-md py-sm peer-checked:!bg-light-primary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-light-primary peer-focus:ring-offset-2 peer-enabled:hover:opacity-50 peer-enabled:active:opacity-25 peer-disabled:text-light-neutral-gray',
+          'flex cursor-pointer items-center gap-xs rounded-lg bg-[rgb(var(--color-light-neutral-gray)/0.25)] px-md py-sm transition-all duration-100 ease-in-out peer-checked:!bg-light-secondary peer-checked:!text-light-background peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-light-secondary peer-focus:ring-offset-2 peer-enabled:hover:opacity-50 peer-enabled:active:opacity-25 peer-disabled:text-light-neutral-gray',
           className,
         )}
         htmlFor={id}
