@@ -7,17 +7,17 @@ export async function GET(req: Request) {
     const page = parseInt(url.searchParams.get('page') || '0'); //added for pagination
 
     //Query
-    const query_text =
+    const queryText =
       'SELECT * FROM posts P ORDER BY P.like_count DESC LIMIT $1 OFFSET $2;';
-    const query_params = [lim, page * lim];
-    const { rows } = await pool.query(query_text, query_params);
+    const queryParams = [lim, page * lim];
+    const { rows } = await pool.query(queryText, queryParams);
 
     if (rows.length == 0) {
       return Response.json({ message: 'No Posts Available' }, { status: 404 });
     }
 
-    const q_text = 'SELECT COUNT(*) FROM posts P';
-    const { rows: row_count } = await pool.query(q_text, []);
+    const qText = 'SELECT COUNT(*) FROM posts P';
+    const { rows: row_count } = await pool.query(qText, []);
     console.log(row_count);
 
     return Response.json({
