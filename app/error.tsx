@@ -1,7 +1,8 @@
 'use client';
 
-import { VerticalLine, Tabs } from '@/components/atoms';
+import { VerticalLine, Tab, Tag } from '@/components/atoms';
 import React from 'react';
+import Link from 'next/link'
 
 export default function Error({
   error,
@@ -34,7 +35,26 @@ export default function Error({
         </div>
         <div className="max-lg:min-w-line-mobile lg:min-w-line-desktop" />
       </section>
-      <Tabs/>
+      <section class="flex flex-row ">
+        <Tab className="my-custom-tab-class">
+          hi
+            <Link href="google.com"></Link>
+        </Tab>
+        <Tab className="my-custom-tab-class">
+              hi
+
+        </Tab>
+        <Tab className="my-custom-tab-class">
+              hi
+
+        </Tab>
+        <Tab className="my-custom-tab-class">
+          hi
+            <Link href="google.com"></Link>
+        </Tab>
+       
+      </section>
+      
     </main>
   );
 }
