@@ -8,15 +8,15 @@ export async function GET(req: Request) {
 
     //Query
     const queryText =
-      'SELECT * FROM posts P ORDER BY P.like_count DESC LIMIT $1 OFFSET $2;';
+      'SELECT * FROM topics T ORDER BY T.post_count DESC LIMIT $1 OFFSET $2;';
     const queryParams = [lim, page * lim];
     const { rows } = await pool.query(queryText, queryParams);
 
     if (rows.length == 0) {
-      return Response.json({ message: 'No Posts Available' }, { status: 404 });
+      return Response.json({ message: 'No Topics Available' }, { status: 404 });
     }
 
-    const qText = 'SELECT COUNT(*) FROM posts P';
+    const qText = 'SELECT COUNT(*) FROM topics T';
     const { rows: row_count } = await pool.query(qText, []);
     console.log(row_count);
 
