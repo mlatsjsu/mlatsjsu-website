@@ -17,7 +17,7 @@ export const Tab: React.FC<Props> = ({ children, className, ...props }) => {
             <input {...props} className="peer sr-only" id={id} type="radio"/>
             <label
                 className={cn(
-                'flex cursor-pointer items-center gap-xs px-md py-sm opacity-25 peer-checked:!opacity-100 peer-checked:border-b-line-width peer-focus:outline-none peer-enabled:hover:opacity-50 peer-enabled:active:opacity-100 ',
+                'flex cursor-pointer items-center gap-xs px-md py-sm opacity-25 peer-checked:!opacity-100 peer-checked:border-b-line-width peer-focus:outline-none peer-enabled:hover:opacity-50 peer-enabled:active:opacity-100 peer-enabled:active:border-b-line-width ',
                 className,
                 )}
                 htmlFor={id}
