@@ -10,15 +10,18 @@ interface CTAProps {
 
 export const CommentTextArea: React.FC<CTAProps> = ({}) => {
   const [sent, setSent] = React.useState<boolean>(false);
-  const [txt, setTxt] = React.useState();
+  const [txt, setTxt] = React.useState('');
 
   function sendHandler() {
     sent ? setSent(false) : setSent(true); //handles button to send data
+    console.log(txt);
+    setTxt('');
   }
 
   function writeHandler(_event: any) {
     setTxt(_event.target.value);
     console.log(_event.target.value);
+    //ideally writes to post endpoint that creates a comment
   }
 
   return (
@@ -29,13 +32,17 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
         <div> name here </div>
       </div>
       <textarea
-        className="m-sm border-none bg-[rgb(var(--color-light-neutral-gray)/0)] text-light-neutral-gray outline-none"
+        className="m-sm resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] text-light-neutral-gray outline-none"
         value={txt}
         onChange={writeHandler}
         placeholder="Add your thoughts..."
       ></textarea>
       <div className="m-sm flex justify-end">
-        <Btn variant={'primary'} className="text-light-primary">
+        <Btn
+          variant={'primary'}
+          className="text-light-primary"
+          onClick={sendHandler}
+        >
           {' '}
           Send{' '}
         </Btn>
