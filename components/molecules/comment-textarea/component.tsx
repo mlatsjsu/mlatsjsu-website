@@ -26,13 +26,13 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
 
   return (
     //redo cta according to figma design
-    <div className="text-light h-141px  w-862px m-sm flex flex-col rounded-sm bg-[rgb(var(--color-light-neutral-gray)/0.25)] p-md ">
-      <div className="m-sm flex gap-8">
+    <div className="text-light w-fill flex flex-col rounded-md bg-[rgb(var(--color-light-neutral-gray)/0.25)] p-md ">
+      <div className="m-sm flex gap-md">
         <img src="nothing.com" alt="insert smaller user component" />
         <div> name here </div>
       </div>
       <textarea
-        className="m-sm resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] text-light-neutral-gray outline-none"
+        className="resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] outline-none"
         value={txt}
         onChange={writeHandler}
         placeholder="Add your thoughts..."
