@@ -3,4 +3,4 @@ export * from './vertical-line';
 export * from './link-btn';
 export * from './card';
 export * from './tag';
-export * from './tab';
+export * from './file-input';

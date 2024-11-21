@@ -1,7 +1,7 @@
 import {cn} from '@/lib/cn';
 import React from 'react';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement>{
+interface Props extends React.HTMLAttributes<HTMLInputElement>{
     children?: React.ReactNode;
 }
 /*
@@ -25,11 +25,6 @@ export const Tab: React.FC<Props> = ({ children, className, ...props }) => {
                 {children}
             </label>
         </span>
-
-        
-        
-           
-       
         
     );
 };

@@ -35,25 +35,6 @@ export default function Error({
         </div>
         <div className="max-lg:min-w-line-mobile lg:min-w-line-desktop" />
       </section>
-      <section class="flex flex-row ">
-        <Tab className="my-custom-tab-class">
-          hi
-            <Link href="google.com"></Link>
-        </Tab>
-        <Tab className="my-custom-tab-class">
-              hi
-
-        </Tab>
-        <Tab className="my-custom-tab-class">
-              hi
-
-        </Tab>
-        <Tab className="my-custom-tab-class">
-          hi
-            <Link href="google.com"></Link>
-        </Tab>
-       
-      </section>
       
     </main>
   );
