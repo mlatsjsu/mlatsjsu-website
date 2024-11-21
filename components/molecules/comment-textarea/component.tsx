@@ -26,8 +26,8 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
 
   return (
     //redo cta according to figma design
-    <div className="text-light  h-141px w-862px m-sm flex flex-col rounded-sm bg-[rgb(var(--color-light-neutral-gray)/0.25)] ">
-      <div className="m-sm flex gap-10">
+    <div className="text-light h-141px  w-862px m-sm flex flex-col rounded-sm bg-[rgb(var(--color-light-neutral-gray)/0.25)] p-md ">
+      <div className="m-sm flex gap-8">
         <img src="nothing.com" alt="insert smaller user component" />
         <div> name here </div>
       </div>
@@ -37,7 +37,7 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
         onChange={writeHandler}
         placeholder="Add your thoughts..."
       ></textarea>
-      <div className="m-sm flex justify-end">
+      <div className="m-sm flex justify-end pb-sm pt-sm">
         <Btn
           variant={'primary'}
           className="text-light-primary"
