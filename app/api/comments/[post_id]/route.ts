@@ -27,15 +27,18 @@ export async function POST(
       throw new Error('ERROR: PostID not found');
     }
 
-    const commentId = ''; //where is this coming from
+    //const commentId = ''; //where is this coming from
     const queryText =
-      'INSERT INTO comments(user_id, post_id, context, comment_ref_id) VALUES ($1, $2, $3, $4) RETURNING comment_ref_id';
-    const queryParams = [userId, postId, commentText, commentId];
+      'INSERT INTO comments(user_id, post_id, content) VALUES ($1, $2, $3) RETURNING id';
+    const queryParams = [userId, postId, commentText];
     const { rows } = await pool.query(queryText, queryParams);
 
-    return Response.json({
-      comment_ref_id: rows[0].comment_ref_id,
-    });
+    return Response.json(
+      {
+        comment_id: rows[0].id,
+      },
+      { status: 201 },
+    );
   } catch (error) {
     return new Response(
       JSON.stringify({
