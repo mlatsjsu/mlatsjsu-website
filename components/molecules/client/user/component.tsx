@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 interface UserProps {
   userId: string;
-  postId: string;
   initialFollowed: boolean;
   name: string;
   followersCount: number;
@@ -19,16 +18,16 @@ const UserComponent: React.FC<UserProps> = ({
   avatarUrl,
 }) => {
   return (
-    <div className="flex items-center justify-between w-full h-full gap-md p-4 border border-light-neutral-gray rounded-md">
+    <div className="flex items-center justify-between w-full gap-md p-4 border border-light-neutral-gray rounded-md">
       <div className="flex items-center gap-md">
         {/* Image Box with Fixed Size and Ellipse Shape */}
-        <div className="w-full h-full rounded-full overflow-hidden flex-shrink-0">
+        <div className="rounded-full overflow-hidden flex-shrink-0">
           <Image
             src={avatarUrl}
             alt={name}
             width={50}
             height={50}
-            className="w-full h-full object-cover rounded-lg"
+            className="w-[50px] h-[50px] object-cover rounded-lg"
           />
         </div>
         <div className="flex flex-col justify-center flex-1">

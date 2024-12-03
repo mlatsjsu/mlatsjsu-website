@@ -15,7 +15,7 @@ const UserSmallComponent: React.FC<UserSmallProps> = ({ avatarUrl, name }) => {
           alt={name}
           width={25}
           height={25}
-          className="object-cover w-full h-full rounded-lg"
+          className="object-cover w-[25px] h-[25px] rounded-lg"
         />
       </div>
       {/* Name Box */}
