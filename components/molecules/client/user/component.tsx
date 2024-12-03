@@ -25,8 +25,6 @@ const UserComponent: React.FC<UserProps> = ({
           <Image
             src={avatarUrl}
             alt={name}
-            width={50}
-            height={50}
             className="w-[50px] h-[50px] object-cover rounded-lg"
           />
         </div>

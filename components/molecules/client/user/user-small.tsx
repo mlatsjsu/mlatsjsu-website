@@ -13,8 +13,6 @@ const UserSmallComponent: React.FC<UserSmallProps> = ({ avatarUrl, name }) => {
         <Image
           src={avatarUrl}
           alt={name}
-          width={25}
-          height={25}
           className="object-cover w-[25px] h-[25px] rounded-lg"
         />
       </div>
