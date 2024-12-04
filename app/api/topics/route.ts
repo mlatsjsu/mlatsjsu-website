@@ -12,8 +12,8 @@ export async function GET(req: Request) {
     const queryParams = [lim, page * lim];
     const { rows } = await pool.query(queryText, queryParams);
 
-    if (rows.length == 0) {
-      return Response.json({ message: 'No Topics Available' }, { status: 404 });
+    if (rows.length === 0) {
+      throw new Error('No Topics Found');
     }
 
     const qText = 'SELECT COUNT(*) FROM topics T';
@@ -27,7 +27,8 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     if (error instanceof Error) {
-      return Response.json({ error: error.message }, { status: 500 });
+      const status = error.message === 'No Topics Found' ? 404 : 500;
+      return Response.json({ error: error.message }, { status });
     }
     return Response.json({ error: error }, { status: 500 });
   }
