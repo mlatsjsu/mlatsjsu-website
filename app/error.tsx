@@ -1,7 +1,8 @@
 'use client';
 
-import { VerticalLine } from '@/components/atoms';
+import { VerticalLine, Tab, Tag } from '@/components/atoms';
 import React from 'react';
+import Link from 'next/link'
 
 export default function Error({
   error,
@@ -34,6 +35,7 @@ export default function Error({
         </div>
         <div className="max-lg:min-w-line-mobile lg:min-w-line-desktop" />
       </section>
+      
     </main>
   );
 }
