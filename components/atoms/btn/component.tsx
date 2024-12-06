@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn';
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends React.ComponentProps<'button'> {
   variant: 'primary' | 'secondary';
   children: React.ReactNode;
 }
