@@ -4,12 +4,12 @@ import { Btn } from '@/components/atoms/btn';
 import { useState, useEffect, useRef } from 'react';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  btn: React.ReactElement;
+  text: React.ReactNode;
   children?: React.ReactNode;
 }
 
 export const Popover: React.FC<Props> = ({
-  btn,
+  text,
   children,
   className,
   ...props
@@ -42,9 +42,9 @@ export const Popover: React.FC<Props> = ({
 
   return (
     <div className={cn('flex flex-col items-center gap-sm')}>
-      <section ref={buttonRef} onClick={toggleVisibility}>
-        {btn}
-      </section>
+      <Btn variant="primary" ref={buttonRef} onClick={toggleVisibility}>
+        {text}
+      </Btn>
 
       {isVisible && (
         <div
