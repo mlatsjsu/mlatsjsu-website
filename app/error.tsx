@@ -1,8 +1,7 @@
 'use client';
 
-import { VerticalLine, Tab, Tag } from '@/components/atoms';
+import { VerticalLine} from '@/components/atoms';
 import React from 'react';
-import Link from 'next/link'
 
 export default function Error({
   error,
