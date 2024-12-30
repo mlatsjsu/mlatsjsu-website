@@ -24,11 +24,7 @@ export async function DELETE(
       const public_id = image.split('/').pop()?.split('.')[0];
       return public_id;
     });
-    await Promise.all(
-      ids.forEach(async (id: string) => {
-        await cloudinary.uploader.destroy(id);
-      }),
-    );
+    await Promise.all(ids.map((id: string) => cloudinary.uploader.destroy(id)));
     return Response.json({ rows });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {

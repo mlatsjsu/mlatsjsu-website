@@ -1,3 +1,5 @@
+'use client';
+
 import { LinkBtn } from '@/components/atoms';
 import { WrenchScrewdriverIcon } from '@heroicons/react/20/solid';
 import useSWRImmutable from 'swr/immutable';

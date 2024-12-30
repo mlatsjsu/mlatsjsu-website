@@ -17,11 +17,15 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    console.log('learning resources post');
     const authorized = await isAuthorizedAdmin();
+    console.log('defined authorized');
 
     if (!authorized) {
+      console.log('unauthorized');
       throw new Error('Unauthorized');
     }
+    console.log('after authorization');
 
     const form = await req.formData();
     const title = form.get('title');

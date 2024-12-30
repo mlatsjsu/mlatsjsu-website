@@ -1,5 +1,4 @@
 import { isAuthorizedAdmin } from '@/lib/auth-admin';
-import cloudinary from '@/lib/cloudinary';
 import pool, { getSpotlights } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -27,17 +26,11 @@ export async function POST(req: Request) {
     const form = await req.formData();
     const title = form.get('title');
     const images = form.getAll('images');
-    const urls = await Promise.all(
-      images.map(async (base64Image) => {
-        const img = await cloudinary.uploader.upload(base64Image as string);
-        return img.secure_url;
-      }),
-    );
     const { rows } = await pool.query(
       `
         INSERT INTO spotlights (title, images) VALUES ($1, $2) RETURNING *;
       `,
-      [title, urls],
+      [title, images],
     );
     return Response.json({ rows });
   } catch (error) {

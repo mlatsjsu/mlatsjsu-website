@@ -1,7 +1,6 @@
 'use client';
 
 import { Table } from '@/components/organisms';
-import { blobToBase64 } from '@/lib/blobToBase64';
 import { SpotlightItem } from '@/types';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
@@ -91,23 +90,36 @@ export const SpotlightForm = () => {
           ],
     };
 
-    // Convert images to base64 for Cloudinary
-    const base64Images = await Promise.all(
-      formData.getAll('images').map(async (image) => {
-        const base64Img = await blobToBase64(image as Blob);
-        return base64Img;
-      }),
-    );
+    const images = formData.getAll('images');
     formData.delete('images');
-    base64Images.forEach((image) => {
-      if (typeof image === 'string') {
-        formData.append('images', image);
-      }
-    });
 
     // Optimistically add the new item to the list, send the request
     mutate(
       async () => {
+        const data = await Promise.all(
+          images.map((image) => {
+            const uploadFormData = new FormData();
+            uploadFormData.append('file', image as Blob);
+            uploadFormData.append(
+              'upload_preset',
+              process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string,
+            );
+            return fetch(
+              `${process.env.NEXT_PUBLIC_CLOUDINARY_URL}/image/upload`,
+              {
+                method: 'POST',
+                body: uploadFormData,
+              },
+            );
+          }),
+        );
+        if (data.some((res) => !res.ok)) {
+          throw new Error('An error occurred while uploading images');
+        }
+        const upload_res = await Promise.all(data.map((res) => res.json()));
+        upload_res.forEach((res) => {
+          formData.append('images', res.secure_url);
+        });
         await fetch('/api/spotlights', {
           method: 'POST',
           body: formData,
