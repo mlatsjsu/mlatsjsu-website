@@ -1,14 +1,18 @@
 'use client';
-import { cn } from '@/lib/cn'; //import tailwind utility
+import { cn } from '@/lib/cn'; //import tailwind utility, unnecessary?
 import { Btn } from '@/components/atoms/btn'; //imports atom btn
 import React from 'react';
 //import UserSmallComponent from './user-small.tsx'
+import { UserSmallComponent } from '../client';
 
 interface CTAProps {
   //add props if needed
+  avatarUrl: string;
+  name: string;
 }
 
-export const CommentTextArea: React.FC<CTAProps> = ({}) => {
+export const CommentTextArea: React.FC<CTAProps> = ({ avatarUrl, name }) => {
+  //need to destructure props here, to use them
   const [sent, setSent] = React.useState<boolean>(false);
   const [txt, setTxt] = React.useState('');
 
@@ -21,16 +25,19 @@ export const CommentTextArea: React.FC<CTAProps> = ({}) => {
   function writeHandler(_event: any) {
     setTxt(_event.target.value);
     console.log(_event.target.value);
-    //ideally writes to post endpoint that creates a comment
+    //TODO: ideally writes to post endpoint that creates a comment
   }
 
   return (
     //redo cta according to figma design
     <div className="text-light w-fill flex flex-col rounded-md bg-[rgb(var(--color-light-neutral-gray)/0.25)] p-md ">
+      {/*
       <div className="m-sm flex gap-md">
-        <img src="nothing.com" alt="insert smaller user component" />
-        <div> name here </div>
+        <img src={avatarUrl} alt={name} />
+        <div> name here </div> 
       </div>
+      */}
+      <UserSmallComponent avatarUrl={avatarUrl} name={name} />
       <textarea
         className="resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] outline-none"
         value={txt}
