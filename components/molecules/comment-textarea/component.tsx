@@ -39,15 +39,15 @@ export const CommentTextArea: React.FC<CTAProps> = ({ avatarUrl, name }) => {
       */}
       <UserSmallComponent avatarUrl={avatarUrl} name={name} />
       <textarea
-        className="resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] outline-none"
+        className="resize-none border-none bg-[rgb(var(--color-light-neutral-gray)/0)] py-sm outline-none"
         value={txt}
         onChange={writeHandler}
         placeholder="Add your thoughts..."
       ></textarea>
-      <div className="m-sm flex justify-end pb-sm pt-sm">
+      <div className="m-sm flex justify-end">
         <Btn
           variant={'primary'}
-          className="text-light-primary"
+          className="px-lg py-sm text-light-primary"
           onClick={sendHandler}
         >
           {' '}
