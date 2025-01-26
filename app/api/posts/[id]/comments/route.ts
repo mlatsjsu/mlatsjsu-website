@@ -8,35 +8,26 @@ export async function POST(
   try {
     const userId = await getSessionUserId();
     if (userId === null || userId === undefined) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-      });
+      throw new Error('Unauthorized');
     }
 
     const { comment } = await request.json();
 
     if (!comment || comment.trim().length === 0) {
-      return new Response(JSON.stringify({ error: 'Comment text is empty' }), {
-        status: 400,
-      });
+      throw new Error('Invalid comment');
     }
 
+    // Check if the post exists
     const postId = params.id;
-    if (!postId || postId === '') {
-      return new Response(JSON.stringify({ error: 'Valid post ID is required' }), {
-        status: 400,
-      });
-    }
 
     const postResult = await pool.query('SELECT id FROM posts WHERE id = $1', [
       postId,
     ]);
     if (postResult.rows.length === 0) {
-      return new Response(JSON.stringify({ error: 'Post not found' }), {
-        status: 404,
-      });
+      throw new Error('Post not found');
     }
 
+    // Create comment and update comment_count
     const { rows } = await pool.query(
       `
         INSERT INTO comments (content, user_id, post_id) 
@@ -45,8 +36,11 @@ export async function POST(
       `,
       [comment, userId, postId],
     );
-    
-    await pool.query('UPDATE posts SET comment_count = comment_count + 1 WHERE id = $1', [postId]);
+
+    await pool.query(
+      'UPDATE posts SET comment_count = comment_count + 1 WHERE id = $1',
+      [postId],
+    );
 
     return new Response(
       JSON.stringify({
@@ -60,6 +54,15 @@ export async function POST(
       { status: 201 },
     );
   } catch (error) {
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return Response.json({ error: error.message }, { status: 401 });
+    }
+    if (error instanceof Error && error.message === 'Invalid comment') {
+      return Response.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof Error && error.message === 'Post not found') {
+      return Response.json({ error: error.message }, { status: 404 });
+    }
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
@@ -74,26 +77,17 @@ export async function GET(
   try {
     const userId = await getSessionUserId();
     if (userId === null || userId === undefined) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-      });
+      throw new Error('Unauthorized');
     }
 
+    // Check if the post exists
     const postId = params.id;
-
-    if (!postId || postId === '') {
-      return new Response(JSON.stringify({ error: 'Valid post ID is required' }), {
-        status: 400,
-      });
-    }
 
     const postResult = await pool.query('SELECT id FROM posts WHERE id = $1', [
       postId,
     ]);
     if (postResult.rows.length === 0) {
-      return new Response(JSON.stringify({ error: 'Post not found' }), {
-        status: 404,
-      });
+      throw new Error('Post not found');
     }
 
     const commentsResult = await pool.query(
@@ -113,10 +107,17 @@ export async function GET(
       [postId],
     );
 
+    // Return all comments under post
     return new Response(JSON.stringify({ comments: commentsResult.rows }), {
       status: 200,
     });
   } catch (error) {
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return Response.json({ error: error.message }, { status: 401 });
+    }
+    if (error instanceof Error && error.message === 'Post not found') {
+      return Response.json({ error: error.message }, { status: 404 });
+    }
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
