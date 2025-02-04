@@ -15,11 +15,11 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   ...props
 }) => {
   return (
-    <div className={cn('flex flex-col gap-2', containerClassName)}>
+    <div className={cn('flex flex-col', containerClassName)}>
       <label 
         htmlFor={id}
         className={cn(
-          'text-sm font-medium text-light-text px-3',
+          'text-sm font-medium text-light-text',
           labelClassName
         )}
       >
