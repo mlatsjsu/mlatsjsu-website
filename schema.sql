@@ -271,6 +271,35 @@ CREATE TABLE comment_likes (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Increment comment_count when a comment is added
+CREATE OR REPLACE FUNCTION increment_post_comment_count()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE posts SET comment_count = comment_count + 1 WHERE id = NEW.post_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_increment_comment_count
+AFTER INSERT ON comments
+FOR EACH ROW
+EXECUTE FUNCTION increment_post_comment_count();
+
+-- Decrement comment_count when a comment is deleted
+CREATE OR REPLACE FUNCTION decrement_post_comment_count()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE posts SET comment_count = comment_count - 1 WHERE id = OLD.post_id;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_decrement_comment_count
+AFTER DELETE ON comments
+FOR EACH ROW
+EXECUTE FUNCTION decrement_post_comment_count();
+
+
 CREATE OR REPLACE FUNCTION remove_from_reading_lists()
 RETURNS TRIGGER AS $$
 BEGIN
