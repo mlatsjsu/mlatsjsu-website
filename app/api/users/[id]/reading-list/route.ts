@@ -1,6 +1,5 @@
-import { getServerSession } from 'next-auth';
 import pool from '@/lib/db';
-import { Session } from 'next-auth';
+import { getSessionUserId } from '@/lib/auth-user';
 
 // Extend the Session type to include google_id
 declare module 'next-auth' {
@@ -12,13 +11,16 @@ declare module 'next-auth' {
 // Async GET function to retrieve reading list
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession();
+    const user_id = await getSessionUserId();
 
-    if (!session) {
+    if (user_id === undefined ) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
 
-    const user_id: string = session.google_id;
+    if (user_id === null ) {
+      return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
+    }
+    
     const url = new URL(req.url);
     const limit: number = parseInt(url.searchParams.get('limit') as string) || 10;
     const page: number = parseInt(url.searchParams.get('page') as string) || 1;
@@ -45,7 +47,9 @@ export async function GET(req: Request) {
       page: page,
       total_pages: totalPages
     }), { status: 200 });
-  } catch (error) {
+  }
+  
+  catch (error) {
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
   }
 }
