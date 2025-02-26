@@ -28,7 +28,7 @@ export async function GET(
 
     // Retrieve reading list for the authenticated user
     const readingList: { rows: { post_id: string }[] } = await pool.query(
-      'SELECT post_id FROM reading_list WHERE user_id = $1 LIMIT $2 OFFSET $3',
+      'SELECT post_id FROM reading_lists WHERE user_id = $1 LIMIT $2 OFFSET $3',
       [user_id, limit, offset]
     );
 
