@@ -1,24 +1,24 @@
 import pool from '@/lib/db';
 import { getSessionUserId } from '@/lib/auth-user';
 
-// Extend the Session type to include google_id
-declare module 'next-auth' {
-  interface Session {
-    google_id: string;
-  }
-}
-
 // Async GET function to retrieve reading list
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } },
+) {
   try {
+    const id = params.id;
+    if (!id || !/^[0-9]+$/.test(id)) {
+        throw new Error('Invalid ID 400');
+    }
     const user_id = await getSessionUserId();
 
     if (user_id === undefined ) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+      throw new Error("Unauthorized User ID 401");
     }
 
     if (user_id === null ) {
-      return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
+      throw new Error("User ID not found 401");
     }
     
     const url = new URL(req.url);
@@ -33,7 +33,7 @@ export async function GET(req: Request) {
     );
 
     if (!readingList.rows.length) {
-      return new Response(JSON.stringify({ error: 'Reading list empty or user not found' }), { status: 404 });
+      throw new Error('Reading list empty 404');
     }
 
     const totalRecords: { rows: { count: string }[] } = await pool.query(
@@ -50,6 +50,18 @@ export async function GET(req: Request) {
   }
   
   catch (error) {
+    if (error instanceof Error && error.message === 'Invalid ID 400') {
+      return new Response(JSON.stringify({error: 'Bad Request' }), {status: 400} );
+    }
+    if (error instanceof Error && error.message === 'Unauthorized User ID 401') {
+      return new Response(JSON.stringify({error: 'Unauthorized' }), {status: 401} );
+    }
+    if (error instanceof Error && error.message === 'User ID not found 404') {
+      return new Response(JSON.stringify({error: 'User not found' }), {status: 404} );
+    }
+    if (error instanceof Error && error.message === 'Reading list empty 404') {
+      return new Response(JSON.stringify({error: 'Reading list empty' }), {status: 404} );
+    }
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
   }
 }
