@@ -4,3 +4,4 @@ export * from './link-btn';
 export * from './card';
 export * from './tag';
 export * from './file-input';
+export * from './tab';
