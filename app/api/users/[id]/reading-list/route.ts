@@ -40,10 +40,6 @@ export async function GET(
       [user_id, limit, offset]
     );
 
-    if (!readingList.rows.length) {
-      throw new Error('Reading list empty 404');
-    }
-
     // Calculate total pages based on the total number of records
     const totalRecords: { rows: { count: string }[] } = await pool.query(
       'SELECT COUNT(*) FROM reading_lists WHERE user_id = $1;',
@@ -67,7 +63,6 @@ export async function GET(
         case 'Unauthorized User ID 401':
           return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
         case 'User ID not found 404':
-        case 'Reading list empty 404':
           return new Response(JSON.stringify({ error: 'Not Found' }), { status: 404 });
         default:
           return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
