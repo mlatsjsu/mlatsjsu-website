@@ -38,10 +38,6 @@ export async function POST(
       );
       message = 'Unfollowed user';
 
-      await pool.query(
-        'UPDATE users SET follower_count = follower_count - 1 WHERE id = $1',
-        [target_user_id],
-      );
     } else {
       // Follow the user
       await pool.query(
@@ -50,10 +46,6 @@ export async function POST(
       );
       message = 'Followed user';
 
-      await pool.query(
-        'UPDATE users SET follower_count = follower_count + 1 WHERE id = $1',
-        [target_user_id],
-      );
     }
 
     const followerCountResult = await pool.query(

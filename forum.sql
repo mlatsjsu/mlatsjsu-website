@@ -164,6 +164,33 @@ AFTER DELETE ON comments
 FOR EACH ROW
 EXECUTE FUNCTION decrement_post_comment_count();
 
+-- Increment follower_count when the user is followed
+CREATE OR REPLACE FUNCTION increment_follower_count()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE users SET follower_count = follower_count + 1 WHERE id = NEW.following_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_increment_follower_count
+AFTER INSERT ON follows
+FOR EACH ROW
+EXECUTE FUNCTION increment_follower_count();
+
+-- Decrement follower_count when the user is unfollowed
+CREATE OR REPLACE FUNCTION decrement_follower_count()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE users SET follower_count = follower_count - 1 WHERE id = OLD.following_id;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_decrement_follower_count
+AFTER DELETE ON follows
+FOR EACH ROW
+EXECUTE FUNCTION decrement_follower_count();
 
 CREATE OR REPLACE FUNCTION remove_from_reading_lists()
 RETURNS TRIGGER AS $$
