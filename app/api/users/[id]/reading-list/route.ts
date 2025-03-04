@@ -9,23 +9,30 @@ export async function GET(
   try {
     // Validate user ID
     const id = params.id;
-    if (!id || !/^[0-9]+$/.test(id)) {
-        throw new Error('Invalid ID 400');
+    if (!id || isNaN(parseInt(id)) || parseInt(id).toString() !== id) {
+      throw new Error('Invalid ID 400');
     }
     const user_id = await getSessionUserId();
-    if (user_id === null ) {
-      throw new Error("User ID not found 404");
+    if (user_id === null) {
+      throw new Error('User ID not found 404');
     }
-
-    if (user_id === undefined || user_id !== parseInt(id)) {
-      throw new Error("Unauthorized User ID 401");
+    if (user_id !== parseInt(id)) {
+      throw new Error('Unauthorized User ID 401');
     }
 
     // Retrieve limit and page from the URL
     const url = new URL(req.url);
-    const limit: number = parseInt(url.searchParams.get('limit') as string) || 10;
-    const page: number = parseInt(url.searchParams.get('page') as string) || 1;
-    const offset: number = (page - 1) * limit;
+    const rawLimit = parseInt(url.searchParams.get('limit') || '10');
+    const rawPage = parseInt(url.searchParams.get('page') || '1');
+
+    // Enforce bounds
+    const limit = Math.min(Math.max(rawLimit, 1), 100); // Between 1 and 100
+    const page = Math.max(rawPage, 1); // Minimum page is 1
+    const offset = (page - 1) * limit;
+
+    if (isNaN(rawLimit) || isNaN(rawPage)) {
+      throw new Error('Invalid limit or page 400');
+    }
 
     // Retrieve reading list for the authenticated user
     const readingList: { rows: { post_id: string }[] } = await pool.query(
@@ -52,18 +59,19 @@ export async function GET(
   }
   
   catch (error) {
-    if (error instanceof Error && error.message === 'Invalid ID 400') {
-      return new Response(JSON.stringify({error: 'Bad Request' }), {status: 400} );
+    if (error instanceof Error) {
+      switch (error.message) {
+        case 'Invalid ID 400':
+        case 'Invalid limit or page 400':
+          return new Response(JSON.stringify({ error: 'Bad Request' }), { status: 400 });
+        case 'Unauthorized User ID 401':
+          return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+        case 'User ID not found 404':
+        case 'Reading list empty 404':
+          return new Response(JSON.stringify({ error: 'Not Found' }), { status: 404 });
+        default:
+          return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+      }
     }
-    if (error instanceof Error && error.message === 'Unauthorized User ID 401') {
-      return new Response(JSON.stringify({error: 'Unauthorized' }), {status: 401} );
-    }
-    if (error instanceof Error && error.message === 'User ID not found 404') {
-      return new Response(JSON.stringify({error: 'User not found' }), {status: 404} );
-    }
-    if (error instanceof Error && error.message === 'Reading list empty 404') {
-      return new Response(JSON.stringify({error: 'Reading list empty' }), {status: 404} );
-    }
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
   }
 }
