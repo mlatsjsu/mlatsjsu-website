@@ -4,3 +4,4 @@ export * from './filter-group';
 export * from './like-btn';
 export * from './follow-btn';
 export * from './user';
+export * from './form-file-input';
