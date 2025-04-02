@@ -103,6 +103,15 @@ export async function POST(
       throw new Error('Invalid user_id 400');
     }
 
+    const existingPost = await pool.query(
+      'SELECT 1 FROM posts WHERE id = $1;',
+      [post_id]
+    );
+
+    if (existingPost.rows.length === 0) {
+      throw new Error('Post ID not found 404');
+    }
+
     // Check if entry already exists
     const existingEntry = await pool.query(
       'SELECT 1 FROM reading_lists WHERE user_id = $1 AND post_id = $2;',
@@ -112,9 +121,6 @@ export async function POST(
     if (existingEntry.rows.length > 0) {
       throw new Error('Entry already exists 409');
     }
-
-    console.log("user_id: ", user_id);
-    console.log("post_id: ", post_id);
     
     // Insert new reading list entry
     const result = await pool.query(
@@ -124,14 +130,11 @@ export async function POST(
       [user_id, post_id]
     );
 
-    console.log("Result: ", result.rows[0]);
     // Get updated reading list
     const readingList = await pool.query(
       'SELECT post_id FROM reading_lists WHERE user_id = $1;',
       [user_id]
     );
-
-    console.log("Reading List: ", readingList.rows);
     
     return new Response(JSON.stringify({
       reading_list: readingList.rows.map(row => row.post_id),
@@ -152,6 +155,7 @@ export async function POST(
         case 'Unauthorized User ID 401':
           return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
         case 'User ID not found 404':
+        case 'Post ID not found 404':
           return new Response(JSON.stringify({ error: 'Not Found' }), { status: 404 });
         case 'Entry already exists 409':
           return new Response(JSON.stringify({ error: 'Entry already exists' }), { status: 409 });
